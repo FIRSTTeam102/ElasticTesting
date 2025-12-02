@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
+  
+    public NetworkTable table;
 
-    private String gamePieceMode = "rock";
+    public String gamePieceMode = "rock";
 
     @Override
     public void robotInit() {
@@ -38,4 +40,29 @@ public class Robot extends TimedRobot {
            
         }
     }
+
 }
+
+/**
+ * let currentMode = "cone"; // default
+
+function toggleMode() {
+    currentMode = (currentMode === "cone") ? "cube" : "cone";
+    NetworkTables.putValue("/SmartDashboard/gamePieceMode", currentMode);
+    updateModeDisplay();
+}
+
+function updateModeDisplay() {
+    document.getElementById("modeDisplay").innerText = `Mode: ${currentMode}`;
+}
+
+// Listen for changes from robot
+NetworkTables.addKeyListener("/SmartDashboard/gamePieceMode", (key, value) => {
+    currentMode = value;
+    updateModeDisplay();
+});
+
+// Attach to button
+document.getElementById("toggleButton").addEventListener("click", toggleMode);
+
+ */
