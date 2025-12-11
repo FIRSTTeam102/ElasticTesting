@@ -8,61 +8,32 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.networktables.Topic;
+import edu.wpi.first.wpilibj.*;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 public class Robot extends TimedRobot {
-  
-    public NetworkTable table;
+    private SendableChooser<String> autoProgram;
+    private static final String Option1 = "Option1";
+    private static final String DoNothing = "Do Nothing";
+    private static final String Dancey = "Dance";
 
-    public String gamePieceMode = "rock";
+    public Robot() {
+      autoProgram= new SendableChooser<>();
+      autoProgram.setDefaultOption("Option 1", Option1);
+      autoProgram.addOption("Do Nothing", DoNothing);
+      autoProgram.addOption("Dance", Dancey);
+      SmartDashboard.putData("Auto Program", autoProgram);
 
-    @Override
-    public void robotInit() {
-        SmartDashboard.putString("gamePieceMode", gamePieceMode);
     }
 
-    @Override
-    public void robotPeriodic() {
-        // Read the value from dashboard (default to current mode if not set)
-        String modeFromDashboard = SmartDashboard.getString("gamePieceMode", gamePieceMode);
 
-        // If the mode has changed, update and react
-        if (!modeFromDashboard.equals(gamePieceMode)) {
-            gamePieceMode = modeFromDashboard;
-            System.out.println("Game piece mode changed to: " + gamePieceMode);
-
-           
-        }
-    }
-
-}
-
-/**
- * let currentMode = "cone"; // default
-
-function toggleMode() {
-    currentMode = (currentMode === "cone") ? "cube" : "cone";
-    NetworkTables.putValue("/SmartDashboard/gamePieceMode", currentMode);
-    updateModeDisplay();
-}
-
-function updateModeDisplay() {
-    document.getElementById("modeDisplay").innerText = `Mode: ${currentMode}`;
-}
-
-// Listen for changes from robot
-NetworkTables.addKeyListener("/SmartDashboard/gamePieceMode", (key, value) => {
-    currentMode = value;
-    updateModeDisplay();
-});
-
-// Attach to button
-document.getElementById("toggleButton").addEventListener("click", toggleMode);
-
- */
+  }

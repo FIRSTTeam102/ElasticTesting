@@ -13,12 +13,9 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public final class Main {
   private Main() {}
-
-  /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
-   */
+  
+  public float testing = 67;
+   
   public static void main(String... args) {
     RobotBase.startRobot(Robot::new);
   }
