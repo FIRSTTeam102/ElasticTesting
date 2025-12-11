@@ -32,8 +32,16 @@ public class Robot extends TimedRobot {
       autoProgram.addOption("Do Nothing", DoNothing);
       autoProgram.addOption("Dance", Dancey);
       SmartDashboard.putData("Auto Program", autoProgram);
-
     }
+    
 
+
+
+
+
+    @Override
+    public void teleopPeriodic() {
+      System.out.println("Testing:" + autoProgram);
+    }
 
   }
