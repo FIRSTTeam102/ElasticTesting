@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-      System.out.println("Testing:" + autoProgram);
+      System.out.println("Testing:" + autoProgram.getSelected());
     }
 
   }
