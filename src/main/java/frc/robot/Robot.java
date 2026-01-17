@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.util.sendable.SendableBuilderImpl;
+//import edu.wpi.first.util.sendable.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,16 +40,21 @@ public class Robot extends TimedRobot {
     }
     
     public class InputData implements Sendable {
-      private double targetValue =0.0; 
+      private float targetValue =0; 
 
 
       @Override
       public void initSendable(SendableBuilder builder){
         builder.setSmartDashboardType("InputData");
-        builder.addDoubleProperty("Target Setpoint",
+        builder.addFloatProperty("Target Setpoint", 
+        () -> targetValue, //getter 
+         (val) -> targetValue = val); //setter
+        
+        
+        /**  builder.addDoubleProperty("Target Setpoint",
         () -> targetValue, //getter
         (val) -> targetValue = val //setter 
-        );
+        ); */
         
         //SmartDashboard.putData("User Inputs",inputData);
       }
