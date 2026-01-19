@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.Topic;
+
 import edu.wpi.first.wpilibj.*;
 
 import edu.wpi.first.util.sendable.Sendable;
@@ -23,53 +25,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
+
 public class Robot extends TimedRobot {
-    private SendableChooser<Float> autoProgram;
-    private static final float Option1 = 67;
-    private static final float Option2 = 41;
-    private static final float Option3 = 21;
-    private SendableBuilder inputData;
+    private NetworkTableEntry shooterSpeedEntry;
 
+    @Override
+    public void robotInit() {
+        // Get the "SmartDashboard" table
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("SmartDashboard");
 
-    public Robot() {
-      autoProgram= new SendableChooser<>();
-      autoProgram.setDefaultOption("Option 1", Option1);
-      autoProgram.addOption("Option2", Option2);
-      autoProgram.addOption("Option3", Option3);
-      SmartDashboard.putData("Auto Program", autoProgram);
+        // Create an entry for shooter speed
+        shooterSpeedEntry = table.getEntry("Shooter Speed");
+
+        // Set a default value
+        shooterSpeedEntry.setDouble(0);
     }
-    
-    public class InputData implements Sendable {
-      private float targetValue =0; 
-
-
-      @Override
-      public void initSendable(SendableBuilder builder){
-        builder.setSmartDashboardType("InputData");
-        builder.addFloatProperty("Target Setpoint", 
-        () -> targetValue, //getter 
-         (val) -> targetValue = val); //setter
-        
-        
-        /**  builder.addDoubleProperty("Target Setpoint",
-        () -> targetValue, //getter
-        (val) -> targetValue = val //setter 
-        ); */
-        
-        //SmartDashboard.putData("User Inputs",inputData);
-      }
-      }
-    
-
-
-
-
 
     @Override
     public void teleopPeriodic() {
-      System.out.println("Testing:" + autoProgram.getSelected());
-    }
+        // Read the value from the dashboard
+        double shooterSpeed = shooterSpeedEntry.getDouble(0);
 
-     
-    
-  }
+        
+        System.out.println("Shooter Speed: " + shooterSpeed);
+    }
+}
